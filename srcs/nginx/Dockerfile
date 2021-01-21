@@ -1,10 +1,13 @@
 # Container OS
-FROM alpine
+FROM alpine:3.12
 
 LABEL maintainer="ehafidi"
 
 # update software packages
-RUN apk update && apk upgrade 
+RUN apk -U upgrade 
+# RUN export HTTP_PROXY_AUTH=basic:*:proxy_user:proxy_password
+# RUN export HTTP_PROXY=http://proxy_host:proxy_port
+# RUN export HTTPS_PROXY=http://proxy_host:proxy_port
 
 # install nginx
 RUN apk add nginx
@@ -24,8 +27,14 @@ RUN mkdir /run/nginx
 
 # SSL
 RUN apk add openssl
-RUN openssl req -x509 -newkey rsa:2048 -keyout localhost-key.pem -days 365 -nodes -subj '/CN=localhost'
-# RUN openssl req -newkey rsa:2048 -nodes -keyout localhost.key -x509 -days 365 -out localhost.crt
+RUN apk update openssl
+#RUN openssl req -x509 -newkey rsa:2048 -keyout localhost-key.pem -days 365 -nodes -subj '/CN=localhost'
+# RUN openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 365 -nodes -subj '/CN=localhost'
+RUN openssl req -newkey rsa:2048 -nodes -keyout /etc/nginx/localhost.key -x509 -days 365 -out /etc/nginx/localhost.crt -subj '/CN=localhost'
+RUN ls -la
+# RUN cd etc/
+# RUN ls -la
+# RUN find ~ -name "localhost.crt" -print
 
 EXPOSE 80 443
 
