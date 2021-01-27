@@ -1,0 +1,49 @@
+
+#service file will be used to get user orders and map them into the pod
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+spec:
+  ports:
+    - name: mysql
+      port: 3306
+      protocol: TCP
+      targetPort: 3306
+  selector:
+     app: mysql   
+  type: ClusterIP
+---
+apiVersion: apps/v1 #deployment will deploy and mange the app
+kind: Deployment
+metadata:
+  name: mysql #name of the app
+  labels:
+    app: mysql
+spec:
+  replicas: 1 #how may pods to create
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers: #data about the container that should be runned
+        - name: mysql
+          image: mysql-container
+          imagePullPolicy: Never #the image is assumed to exist locally. No attempt is made to pull the image.
+          ports:
+            - containerPort: 3306
+      #     volumeMounts: 
+      #       - mountPath: "/var/lib/mysql"
+      #       names: pv-mysql
+      # volumes:        #volume is mounted into the pod #mettre ca dans service ou deployment
+      #   - name: pv-mysql
+      #     persistentVolumeClaim:
+      #       claimName: pvc-mysql      
+
+

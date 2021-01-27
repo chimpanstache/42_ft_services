@@ -1,0 +1,41 @@
+
+#service file will be used to get user orders and map them into the pod
+apiVersion: v1
+kind: Service
+metadata:
+  name: phpmyadmin
+  labels:
+    app: phpmyadmin
+spec:
+  ports:
+    - name: http
+      port: 5000
+      protocol: TCP
+      targetPort: 5000
+  selector:
+     app: phpmyadmin   
+  type: LoadBalancer
+---
+apiVersion: apps/v1 #deployment will deploy and mange the app
+kind: Deployment
+metadata:
+  name: phpmyadmin  #name of the app
+  labels:
+    app: phpmyadmin 
+spec:
+  replicas: 1 #how may pods to create
+  selector:
+    matchLabels:
+      app: phpmyadmin 
+  template:
+    metadata:
+      labels:
+        app: phpmyadmin 
+    spec:
+      containers: #data about the container that should be runned
+      - name: phpmyadmin 
+        image: phpmyadmin-container
+        imagePullPolicy: Never #the image is assumed to exist locally. No attempt is made to pull the image.
+        ports:
+        - containerPort: 80  
+

@@ -1,0 +1,44 @@
+FROM alpine:3.12
+
+# *
+# * phpmyadmin has been installed to:
+# *     /usr/share/webapps/phpmyadmin
+# * phpmyadmin config file has been installed to:
+# *     /etc/phpmyadmin/config.inc.php
+# * If you use apache2:
+# *     1) Change the ownership of the config directory:
+# *            chown -R apache:apache /etc/phpmyadmin
+# *     2) See if you need to modify the apache2 config:
+# *            /etc/apache2/conf.d/phpmyadmin.conf
+# *     3) Restart apache2 when done.
+
+LABEL maintainer="ehafidi"
+RUN apk -U upgrade 
+
+RUN apk add openrc
+RUN apk add nginx
+RUN apk add php7 php7-fpm php7-opcache php7-gd php7-mysqli php7-zlib \
+	php7-curl php7-mbstring php7-json php7-session
+
+
+#creating new user, group and a directory for files
+RUN adduser -D -g 'www' www
+RUN mkdir /www
+RUN chown -R www:www /var/lib/nginx
+RUN chown -R www:www /www
+
+RUN rm /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/nginx.conf
+COPY index.html /www/index.html
+
+RUN mkdir /run/nginx
+
+
+ADD phpMyAdmin-5.0.4-english /var/www/phpmyadmin 
+
+
+ADD launch.sh /setup/launch.sh
+
+EXPOSE 5000
+
+CMD ["/bin/ash",  "/setup/launch.sh"]
