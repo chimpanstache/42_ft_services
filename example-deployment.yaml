@@ -1,9 +1,0 @@
-#each configuration file has 3 parts : metadata, specification, status (automatically generated and added by kubernetes)
-#strict about indentation
-#store them with the code
-#template has its own metadata and spec => "configuration file inside configuration file", bcz it applies to pod, they should have their own config file
-# in metadatat we give key-value pair labels for component # we give pods created with this blue print ex: app: nginx
-#we tell the deployments to match all labels with app : nginx for instance to create the conneciton with pods
-#in specification of service.yaml we add the corresponding label in selector
-#service has a port where its service are accessible at =>port
-#targetport, is the port where pods are listening, for requests

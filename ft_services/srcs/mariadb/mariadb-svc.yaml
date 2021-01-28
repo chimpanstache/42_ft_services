@@ -1,29 +1,46 @@
-
-#service file will be used to get user orders and map them into the pod
 apiVersion: v1
 kind: Service
 metadata:
   name: mysql
-  labels:
-    app: mysql
 spec:
-  ports:
-    - name: mysql
-      port: 3306
-      protocol: TCP
-      targetPort: 3306
   selector:
-     app: mysql   
+    app: mysql
+  ports:
+    - port: 3306
   type: ClusterIP
 ---
-apiVersion: apps/v1 #deployment will deploy and mange the app
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-pv
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 500Mi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/data/mysql"
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: mysql-pvc
+spec:
+  storageClassName: manual
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+---
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql #name of the app
-  labels:
-    app: mysql
+  name: mysql
 spec:
-  replicas: 1 #how may pods to create
   selector:
     matchLabels:
       app: mysql
@@ -32,18 +49,18 @@ spec:
       labels:
         app: mysql
     spec:
-      containers: #data about the container that should be runned
+      containers:
         - name: mysql
           image: mysql-container
-          imagePullPolicy: Never #the image is assumed to exist locally. No attempt is made to pull the image.
+          imagePullPolicy: Never
           ports:
             - containerPort: 3306
-      #     volumeMounts: 
-      #       - mountPath: "/var/lib/mysql"
-      #       names: pv-mysql
-      # volumes:        #volume is mounted into the pod #mettre ca dans service ou deployment
-      #   - name: pv-mysql
-      #     persistentVolumeClaim:
-      #       claimName: pvc-mysql      
+          volumeMounts:
+            - mountPath: "/var/lib/mysql"
+              name: mysql-pv
+      volumes:
+        - name: mysql-pv
+          persistentVolumeClaim:
+            claimName: mysql-pvc  
 
 

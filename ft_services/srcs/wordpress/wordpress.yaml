@@ -1,0 +1,44 @@
+
+#service file will be used to get user orders and map them into the pod
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordpress
+  labels:
+    app: wordpress
+  annotations:  
+    metallb.universe.tf/allow-shared-ip : key  
+spec:
+  ports:
+    - name: http
+      port: 5050
+      protocol: TCP
+      targetPort: 5050
+  selector:
+     app: wordpress  
+  type: LoadBalancer
+  loadBalancerIP: 192.168.99.115  
+---
+apiVersion: apps/v1 #deployment will deploy and mange the app
+kind: Deployment
+metadata:
+  name: wordpress  #name of the app
+  labels:
+    app: wordpress 
+spec:
+  replicas: 1 #how may pods to create
+  selector:
+    matchLabels:
+      app: wordpress 
+  template:
+    metadata:
+      labels:
+        app: wordpress 
+    spec:
+      containers: #data about the container that should be runned
+      - name: wordpress 
+        image: wordpress-container
+        imagePullPolicy: Never #the image is assumed to exist locally. No attempt is made to pull the image.
+        ports:
+        - containerPort: 80  
+

@@ -24,6 +24,9 @@ kubectl apply -f metallb/config.yaml # and not create !!!!!!!!!!
 docker build -t mysql-container srcs/mariadb
 kubectl create -f srcs/mariadb/mariadb-svc.yaml
 
+docker build -t wordpress-container srcs/wordpress
+kubectl create -f srcs/wordpress/wordpress.yaml
+
 docker build -t phpmyadmin-container srcs/phpmyadmin
 kubectl create -f srcs/phpmyadmin/phpmyadmin.yaml
 

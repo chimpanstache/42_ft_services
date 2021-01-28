@@ -1,6 +1,6 @@
 
-mysql_install_db --user=root --bootstrap < /setup/database.sql
-mysql_install_db --user=root --ldata="/var/lib/mysql"
+mysql_install_db --user=root --ldata=/var/lib/mysql
+mysqld --user=root --bootstrap < /setup/database.sql
 #bind adres 0000 accpete requetes e n'importe quel ips 
 # --console keeps the console window open
 # --console keeps the console window open
