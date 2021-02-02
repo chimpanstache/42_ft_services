@@ -16,6 +16,8 @@ LABEL maintainer="ehafidi"
 RUN apk -U upgrade 
 
 RUN apk add openrc
+RUN apk add openssl
+RUN apk add openssl
 RUN apk add nginx
 RUN apk add php7 php7-fpm php7-opcache php7-gd php7-mysqli php7-zlib \
 	php7-curl php7-mbstring php7-json php7-session
@@ -31,6 +33,8 @@ COPY wordpress.conf /etc/nginx/conf.d/wordpress.conf
 #COPY index.html /www/index.html
 
 RUN mkdir /run/nginx
+
+#RUN openssl req -newkey rsa:2048 -nodes -keyout /etc/nginx/localhost.key -x509 -days 365 -out /etc/nginx/localhost.crt -subj '/CN=localhost'
 
 COPY wp /var/www/wordpress
 
