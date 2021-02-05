@@ -55,11 +55,11 @@ spec:
           imagePullPolicy: Never
           ports:
             - containerPort: 8086
-            livenessProbe:
-              tcpSocket:
-                port: 8086
-              initialDelaySeconds: 15
-              periodSeconds: 20 
+            # livenessProbe:
+            #   tcpSocket:
+            #     port: 8086
+            #   initialDelaySeconds: 15
+            #   periodSeconds: 20 
           volumeMounts:
             - mountPath: "/var/lib/influxdb"
               name: influxdb-pv

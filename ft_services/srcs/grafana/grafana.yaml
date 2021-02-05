@@ -38,8 +38,8 @@ spec:
         imagePullPolicy: Never #the image is assumed to exist locally. No attempt is made to pull the image.
         ports:
         - containerPort: 3000  
-        livenessProbe:
-          tcpSocket:
-            port: 3000
-          initialDelaySeconds: 15
-          periodSeconds: 20 
+        # livenessProbe:
+        #   tcpSocket:
+        #     port: 3000
+        #   initialDelaySeconds: 15
+        #   periodSeconds: 20 

@@ -55,11 +55,11 @@ spec:
           imagePullPolicy: Never
           ports:
             - containerPort: 3306
-            livenessProbe:
-              tcpSocket:
-                port: 3306
-              initialDelaySeconds: 15
-              periodSeconds: 20 
+            # livenessProbe:
+            #   tcpSocket:
+            #     port: 3306
+            #   initialDelaySeconds: 15
+            #   periodSeconds: 20 
           volumeMounts:
             - mountPath: "/var/lib/mysql"
               name: mysql-pv

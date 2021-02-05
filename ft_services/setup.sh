@@ -35,24 +35,24 @@ kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.5/manife
 kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
 kubectl apply -f metallb/config.yaml # and not create !!!!!!!!!!
 
-# echo "\n#===================================== ftpsserver =====================================\n"
+echo "\n#===================================== ftpsserver =====================================\n"
 
-# docker build -t ftps-container srcs/ftps
-# kubectl create -f srcs/ftps/ftps.yaml
-# #kubectl apply -f srcs/ftps/ftps.yaml
-# echo "\n#===================================== mysql =====================================\n"
-# kubectl create -f srcs/mariadb/mariadb-vol.yaml
-# docker build -t mysql-container srcs/mariadb
-# kubectl create -f srcs/mariadb/mariadb-svc.yaml
+docker build -t ftps-container srcs/ftps
+kubectl create -f srcs/ftps/ftps.yaml
+#kubectl apply -f srcs/ftps/ftps.yaml
+echo "\n#===================================== mysql =====================================\n"
+kubectl create -f srcs/mariadb/mariadb-vol.yaml
+docker build -t mysql-container srcs/mariadb
+kubectl create -f srcs/mariadb/mariadb-svc.yaml
 
-# echo "\n#===================================== wordpress =====================================\n"
-# # build wordpress
-# docker build -t wordpress-container srcs/wordpress
-# kubectl create -f srcs/wordpress/wordpress.yaml
-# echo "\n#===================================== phpmyadmin =====================================\n"
-# # build phpmyadmin
-# docker build -t phpmyadmin-container srcs/phpmyadmin
-# kubectl create -f srcs/phpmyadmin/phpmyadmin.yaml
+echo "\n#===================================== wordpress =====================================\n"
+# build wordpress
+docker build -t wordpress-container srcs/wordpress
+kubectl create -f srcs/wordpress/wordpress.yaml
+echo "\n#===================================== phpmyadmin =====================================\n"
+# build phpmyadmin
+docker build -t phpmyadmin-container srcs/phpmyadmin
+kubectl create -f srcs/phpmyadmin/phpmyadmin.yaml
 
 
 echo "\n#===================================== nginx =====================================\n"
