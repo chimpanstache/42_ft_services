@@ -10,6 +10,8 @@
 #                                                                              #
 # **************************************************************************** #
 
+# exec telegraf-1.17.2/usr/bin/telegraf $@
+telegraf &
 /usr/sbin/sshd
 
 nginx -g 'daemon off;'

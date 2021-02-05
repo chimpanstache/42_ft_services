@@ -2,54 +2,44 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: ftps
+  name: grafana
   labels:
-    app: ftps
+    app: grafana
   annotations:  
     metallb.universe.tf/allow-shared-ip : key
 spec:
   ports:
-      - name: f
-        port: 21
-      - name: t
-        port: 30000
-      - name: p
-        port: 30001  
-      - name: s
-        port: 30002
-      - name: q
-        port: 30003
-      - name: w
-        port: 30004 
+    - name: http
+      port: 3000
   selector:
-     app: ftps   
+     app: grafana   
   type: LoadBalancer
   loadBalancerIP: 192.168.99.115
 ---
 apiVersion: apps/v1 #deployment will deploy and mange the app
 kind: Deployment
 metadata:
-  name: ftps #name of the app
+  name: grafana #name of the app
   labels:
-    app: ftps
+    app: grafana
 spec:
   replicas: 1 #how may pods to create
   selector:
     matchLabels:
-      app: ftps
+      app: grafana
   template:
     metadata:
       labels:
-        app: ftps
+        app: grafana
     spec:
       containers: #data about the container that should be runned
-      - name: ftps
-        image: ftps-container
+      - name: grafana
+        image: grafana-container
         imagePullPolicy: Never #the image is assumed to exist locally. No attempt is made to pull the image.
         ports:
-        - containerPort: 21  
+        - containerPort: 3000  
         livenessProbe:
           tcpSocket:
-            port: 21
+            port: 3000
           initialDelaySeconds: 15
           periodSeconds: 20 

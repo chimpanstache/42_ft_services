@@ -15,6 +15,15 @@ FROM alpine:3.12
 LABEL maintainer="ehafidi"
 RUN apk -U upgrade 
 
+ADD https://dl.influxdata.com/telegraf/releases/telegraf-1.17.2_linux_amd64.tar.gz  ./
+RUN tar -C . -xzf telegraf-1.17.2_linux_amd64.tar.gz 
+RUN chmod +x telegraf-1.17.2/
+# RUN find . -name "telegraf.conf"
+RUN mv /telegraf-1.17.2/etc/telegraf/telegraf.conf /telegraf-1.17.2/etc/telegraf/telegraf.conf.ori
+COPY telegraf.conf /telegraf-1.17.2/etc/telegraf/telegraf.conf
+# ./telegraf-1.17.2/etc/telegraf/telegraf.conf
+RUN mv telegraf-1.17.2/usr/bin/* /usr/local/bin/
+
 RUN apk add openrc
 RUN apk add nginx
 RUN apk add php7 php7-fpm php7-opcache php7-gd php7-mysqli php7-zlib \
@@ -37,8 +46,8 @@ RUN mkdir /run/nginx
 ADD phpMyAdmin-5.0.4-english /var/www/phpmyadmin 
 
 
-ADD launch.sh /setup/launch.sh
+ADD phpmyadmin.sh /setup/phpmyadmin.sh
 
 EXPOSE 5000
 
-CMD ["/bin/ash",  "/setup/launch.sh"]
+CMD ["/bin/ash",  "/setup/phpmyadmin.sh"]

@@ -1,4 +1,4 @@
-
+telegraf
 mysql_install_db --user=root --ldata=/var/lib/mysql
 mysqld --user=root --bootstrap < /setup/database.sql
 #bind adres 0000 accpete requetes e n'importe quel ips 

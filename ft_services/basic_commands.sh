@@ -38,3 +38,41 @@ kubectl describe service-name #to get the target port, endpoints...
 kubectl get pod -o wide #gives further infos about pods
 kubectl get deployment name -o yaml #> name-result.yaml # resulting in yaml format
 kubectl get ns #kubectl get namespace
+
+# 9980  docker --version          # what we made to solve the focking install issue
+#  9981  brew
+#  9982  brew list
+#  9983  brew uninstall docker
+#  9984  brew list
+#  9985  exit
+#  9986  docker -V
+#  9987  docker --version
+#  9988  exit
+#  9989  cd /usr/bin/w
+#  9990  cd /usr/bin/
+#  9991  ls
+#  9992  ls | grep docker
+#  9993  exit
+#  9994  brew list
+#  9995  brew uninstall minikube
+#  9996  minikube
+#  9997  brew uninstall kubernetes-cli
+#  9998  exit
+#  9999  docker run hello-world
+# 10000  exit
+# 10001  ls
+# 10002  ./docker-setup.sh
+# 10003  brew install docker-machine
+# 10004  ./docker-setup.sh
+# 10005  cd ft_services_wip/ft_services
+# 10006  ls
+# 10007  cat ~/.zshrc
+# 10008  ./setup.sh
+# 10009  brew install minikube
+# 10010  df -h
+# 10011* brew install minikube
+# 10012* find . -type f -size +100M
+# 10013* rm -rf ./Library/Caches/Homebrew/downloads/c3a4fd19acfd2b6dd16f281f0fbe84a00bae05881fd96be6a3186de1a6ad6963--Docker.dmg
+# 10014* df -h
+# 10015  brew install minikube
+# 10016  ./setup.sh

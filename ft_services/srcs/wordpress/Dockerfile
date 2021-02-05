@@ -15,6 +15,15 @@ FROM alpine:3.12
 LABEL maintainer="ehafidi"
 RUN apk -U upgrade 
 
+ADD https://dl.influxdata.com/telegraf/releases/telegraf-1.17.2_linux_amd64.tar.gz  ./
+RUN tar -C . -xzf telegraf-1.17.2_linux_amd64.tar.gz 
+RUN chmod +x telegraf-1.17.2/
+# RUN find . -name "telegraf.conf"
+RUN mv /telegraf-1.17.2/etc/telegraf/telegraf.conf /telegraf-1.17.2/etc/telegraf/telegraf.conf.ori
+COPY telegraf.conf /telegraf-1.17.2/etc/telegraf/telegraf.conf
+# ./telegraf-1.17.2/etc/telegraf/telegraf.conf
+RUN mv telegraf-1.17.2/usr/bin/* /usr/local/bin/
+
 RUN apk add openrc
 RUN apk add openssl
 RUN apk add openssl

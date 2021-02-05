@@ -8,27 +8,19 @@ EXPOSE 8086
 
 RUN apk update
 RUN apk upgrade
-
 RUN apk add influxdb
 
+ADD https://dl.influxdata.com/telegraf/releases/telegraf-1.17.2_linux_amd64.tar.gz  ./
+RUN tar -C . -xzf telegraf-1.17.2_linux_amd64.tar.gz 
+RUN chmod +x telegraf-1.17.2/
+# RUN find . -name "telegraf.conf"
+RUN mv /telegraf-1.17.2/etc/telegraf/telegraf.conf /telegraf-1.17.2/etc/telegraf/telegraf.conf.ori
+COPY telegraf.conf /telegraf-1.17.2/etc/telegraf/telegraf.conf
+# ./telegraf-1.17.2/etc/telegraf/telegraf.conf
+RUN mv telegraf-1.17.2/usr/bin/* /usr/local/bin/
+
 COPY influxdb.conf /etc/influxdb/influxdb.conf
+ADD influxdb.sh /setup/influxdb.sh
 
-# RUN apk update && apk upgrade
-# VOLUME [ "/var/lib/influxdb" ]
-
-# RUN apk add influxdb
-
-
-
-
-# COPY influxdb.conf /etc/influxdb/influxdb.conf
-
-
-# EXPOSE 8086
-
-# RUN influxd 
-
-ADD script.sh /setup/script.sh
-
-CMD /bin/ash /setup/init.sh
+CMD /bin/ash /setup/influxdb.sh
 # ADD database.sql /setup/database.sql
