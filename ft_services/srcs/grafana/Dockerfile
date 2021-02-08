@@ -15,5 +15,7 @@ RUN apk add --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main libc6-co
 RUN	rm -f grafana-7.4.0.linux-amd64.tar.gz 
 RUN	mv grafana-7.4.0/bin/* /usr/local/bin/ 
 
+COPY grafana.db /grafana-7.4.0/data/
+
 COPY grafana.sh /exe/grafana.sh
 CMD ["/bin/ash",  "/exe/grafana.sh"]
