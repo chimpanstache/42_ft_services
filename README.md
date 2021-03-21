@@ -13,6 +13,7 @@ The applications are:
 * Several servers (Nginx, FTPS).
 * Several databases (MySQL, InfluxDB).
 * A Grafana Dashboard.
+
 More details are given on the project's subject.
 
 ## Getting started
