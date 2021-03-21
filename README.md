@@ -2,7 +2,7 @@
 
 # Ft_services
 Ft_services is the most difficult devops project of the common core in 42.
-It makes you deploy several applications containerized using docker.
+It makes you deploy several containerized applications using Docker.
 All these applications are clusterized, linked and managed using Kubernetes.
 All these applications are launched with a script (setup.sh). The script is calling the necessary yaml and dockerfiles, to launch and start all applications.
 The applications are:
