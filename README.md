@@ -19,5 +19,5 @@ More details are given on the project's subject.
 ## Getting started
 This project is designed for macOS and Linux.
 First of all, make sure that you have VirtualBox, Docker, Docker-Compose, and Minikube installed on your computer.
-Then, in a terminal, launch the docker-setup.sh script to configurate Docker.
+Then, in a terminal, launch the docker-setup.sh (s/o @martichou) script to configurate Docker.
 Afterwards, launch the setup.sh script and see the magic happening.
